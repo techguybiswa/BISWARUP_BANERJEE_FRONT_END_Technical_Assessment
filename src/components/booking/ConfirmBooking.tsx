@@ -5,9 +5,9 @@ import TextField from "@mui/material/TextField";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { formatTime } from "../utils/utils";
+import { formatTime } from "../../utils/utils";
 import Button from "@mui/material/Button";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -15,7 +15,7 @@ import {
   BookingConfirmationResponse,
   Doctor,
   RequestType,
-} from "../utils/constants";
+} from "../../utils/constants";
 import Alert from "@mui/material/Alert";
 interface BookingDetails {
   date: Dayjs;
@@ -154,7 +154,7 @@ function ConfirmBooking(props: ConfirmBookingProps) {
           severity="error"
           style={{ marginTop: "20px" }}
         >
-          {error}
+          {error && "Invalid Booking. Please select a different date and time."}
         </Alert>
       )}
       <Button
@@ -177,7 +177,7 @@ function ConfirmBooking(props: ConfirmBookingProps) {
             width: "100%",
           }}
         >
-          Confirm Booking
+          {loading ? "Confirming..." : "Confirm Booking"}
         </Typography>
       </Button>
     </>

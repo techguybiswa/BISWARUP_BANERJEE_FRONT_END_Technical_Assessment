@@ -1,9 +1,9 @@
 import "./App.css";
 import Grid from "@mui/system/Unstable_Grid";
-import DoctorCard from "./components/DoctorCard";
+import DoctorCard from "./components/doctor/DoctorCard";
 import Layout from "./layout/layout";
-import SearchBar from "./components/SearchBar";
-import { StyledLink } from "./components/StyledLink";
+import SearchBar from "./components/common/SearchBar";
+import { StyledLink } from "./components/common/StyledLink";
 import {
   ApiResponse,
   Doctor,
@@ -11,7 +11,7 @@ import {
   mapDoctorIdToImage,
 } from "./utils/constants";
 import useFetch from "./hooks/useFetch";
-import LoadingSkeleton from "./components/LoadingSkeleton";
+import LoadingSkeleton from "./components/common/LoadingSkeleton";
 import { useEffect } from "react";
 
 function App() {

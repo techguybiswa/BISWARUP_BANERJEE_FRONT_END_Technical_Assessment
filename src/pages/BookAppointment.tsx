@@ -2,19 +2,19 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import dayjs, { Dayjs } from "dayjs";
-import AvailableTimeSlots from "../components/AvailableTimeSlots";
+import AvailableTimeSlots from "../components/booking/AvailableTimeSlots";
 import { ApiResponse, Doctor, RequestType } from "../utils/constants";
 
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import ViewAllDatesDialog from "../components/BookingDialog";
-import ConfirmBooking from "../components/ConfirmBooking";
+import ViewAllDatesDialog from "../components/booking/BookingDialog";
+import ConfirmBooking from "../components/booking/ConfirmBooking";
 import Layout from "../layout/layout";
 import useFetch from "../hooks/useFetch";
-import DoctorProfile from "../components/DoctorProfile";
-import LoadingSkeleton from "../components/LoadingSkeleton";
-import UpcomingDates from "../components/UpcomingDates";
-import ViewAllDates from "../components/ViewAllDates";
+import DoctorProfile from "../components/doctor/DoctorProfile";
+import LoadingSkeleton from "../components/common/LoadingSkeleton";
+import UpcomingDates from "../components/booking/UpcomingDates";
+import ViewAllDates from "../components/booking/ViewAllDates";
 
 function BookAppointment() {
   const [selectedDate, setSelectedDate] = useState<Dayjs>();

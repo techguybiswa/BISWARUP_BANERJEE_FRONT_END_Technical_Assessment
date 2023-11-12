@@ -1,18 +1,21 @@
 import Typography from "@mui/material/Typography";
 import dayjs, { Dayjs } from "dayjs";
-
 import Grid from "@mui/system/Unstable_Grid";
 import { useEffect, useState } from "react";
-import { formatTime, generateHourlySlotsBetweenTimes } from "../utils/utils";
+import {
+  formatTime,
+  generateHourlySlotsBetweenTimes,
+  getDateTimeOfSelectedSlot,
+} from "../../utils/utils";
 import {
   ApiResponse,
   BookingDetails,
   Doctor,
   OpeningHours,
   RequestType,
-} from "../utils/constants";
-import useFetch from "../hooks/useFetch";
-import LoadingSkeleton from "./LoadingSkeleton";
+} from "../../utils/constants";
+import useFetch from "../../hooks/useFetch";
+import LoadingSkeleton from "../common/LoadingSkeleton";
 
 interface AvailableTimeSlotsProps {
   selectedDate: Dayjs;
@@ -60,6 +63,8 @@ function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
   }, []);
   useEffect(() => {
     if (allBookingDetails) {
+      const allSlots: number[] =
+        getAllSlotsFromDate(selectedDate, selectedDoctor.opening_hours) ?? [];
       const slotsAlreadyBooked = allBookingDetails
         .filter(
           (b) =>
@@ -67,14 +72,15 @@ function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
             b.date === dayjs(selectedDate).format("YYYY-MM-DD")
         )
         .map((b) => b.start);
-
-      const allSlots = getAllSlotsFromDate(
-        selectedDate,
-        selectedDoctor.opening_hours
-      );
+      const currentDateTime = dayjs();
       if (allSlots) {
         const allAvailableSlots = allSlots.filter(
-          (s) => slotsAlreadyBooked.indexOf(s) == -1
+          (s) =>
+            slotsAlreadyBooked.indexOf(s) == -1 &&
+            getDateTimeOfSelectedSlot(selectedDate, s).isAfter(
+              currentDateTime,
+              "minutes"
+            )
         );
         setAllTimeSlots(allAvailableSlots);
         setSelectedTimeSlot(allAvailableSlots[0]);

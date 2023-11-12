@@ -1,8 +1,8 @@
 import { Grid, Typography } from "@mui/material";
-import CoverPic from "../assets/coverpic.jpeg";
+import CoverPic from "../../assets/coverpic.jpeg";
 
-import { Doctor, mapDoctorIdToImage } from "../utils/constants";
-import { toCamelCase } from "../utils/utils";
+import { Doctor, mapDoctorIdToImage } from "../../utils/constants";
+import { toCamelCase } from "../../utils/utils";
 import styled from "styled-components";
 const BookAppointmentCover = styled.div<{ imageUrl: string }>`
   width: 100%;

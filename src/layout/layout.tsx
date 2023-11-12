@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Navbar from "../components/NavBar";
+import Navbar from "../components/common/Navbar";
 import Typography from "@mui/material/Typography";
 import { styled } from "styled-components";
 interface LayoutProps {

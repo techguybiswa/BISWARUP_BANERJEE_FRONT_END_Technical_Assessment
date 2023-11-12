@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import DocsBookLogo from "../assets/docsbooklogo.png";
+import DocsBookLogo from "../../assets/docsbooklogo.png";
 import Grid from "@mui/system/Unstable_Grid";
 import LocalOfferRoundedIcon from "@mui/icons-material/LocalOfferRounded";
 import { StyledLink } from "./StyledLink";

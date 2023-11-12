@@ -8,7 +8,7 @@ import {
   ApiResponse,
   mapDoctorIdToImage,
 } from "../utils/constants";
-import LoadingSkeleton from "../components/LoadingSkeleton";
+import LoadingSkeleton from "../components/common/LoadingSkeleton";
 import {
   Card,
   CardActionArea,

@@ -1,4 +1,6 @@
-import * as dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 
 export const toCamelCase = (str : string) : string => {
   if(!str) return ""
@@ -21,7 +23,7 @@ export const formatTime = (time: number) => {
 };
 
 
-export const getUpcomingDates = (numUpcomingDates : number) => {
+export const getUpcomingDates = (numUpcomingDates : number): Dayjs[] => {
   const currentDate = dayjs();
   const upcomingDates = [currentDate];
   while (upcomingDates.length < numUpcomingDates) {
@@ -46,3 +48,9 @@ export const generateHourlySlotsBetweenTimes = (
   return allSlots;
 };
 
+export const getDateTimeOfSelectedSlot = (selectedDate : Dayjs, selectedTime : number) : Dayjs => dayjs(
+  dayjs(selectedDate).format("YYYY MM DD") +
+    " " +
+    formatTime(selectedTime),
+  "YYYY MM DD HH:mm A"
+)

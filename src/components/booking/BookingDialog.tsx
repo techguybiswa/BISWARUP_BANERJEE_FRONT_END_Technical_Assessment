@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { Dialog, DialogContent, Button } from "@mui/material";
-import { Doctor, Steps } from "../utils/constants";
+import { Doctor, Steps } from "../../utils/constants";
 import AvailableTimeSlots from "./AvailableTimeSlots";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -22,7 +22,6 @@ function GetStep(
 ) {
   const [dateValue, setDateValue] = useState<Dayjs>(dayjs());
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<number>(0);
-  console.log({ doctor });
 
   switch (step) {
     case Steps.DATE_SELECTION:

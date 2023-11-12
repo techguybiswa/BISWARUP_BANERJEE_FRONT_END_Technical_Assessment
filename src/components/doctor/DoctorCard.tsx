@@ -3,8 +3,8 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/system/Unstable_Grid";
 import WorkOutlineRoundedIcon from "@mui/icons-material/WorkOutlineRounded";
 import LocalActivityIcon from "@mui/icons-material/LocalActivity";
-import { toCamelCase } from "../utils/utils";
-import { Doctor } from "../utils/constants";
+import { toCamelCase } from "../../utils/utils";
+import { Doctor } from "../../utils/constants";
 import styled from "styled-components";
 
 interface DoctorCardProps {
