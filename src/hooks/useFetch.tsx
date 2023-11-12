@@ -45,8 +45,7 @@ const useFetch = <T,>({
         setLoading(false);
       })
       .catch((error) => {
-        setError(error);
-        setError("Invalid Booking. Please Choose a different date and time.");
+        setError(`${error.message}`);
         setLoading(false);
       });
   }

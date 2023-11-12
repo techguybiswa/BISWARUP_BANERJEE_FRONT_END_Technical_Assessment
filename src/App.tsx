@@ -36,7 +36,7 @@ function App() {
         <div style={{ marginTop: "30px" }}>
           <Grid container spacing={2}>
             {loading && <LoadingSkeleton />}
-            {error && <p> Error {error}</p>}
+            {error && <p> {error}</p>}
             {doctors &&
               doctors.map((d) => (
                 <Grid xs={6} md={4} lg={3} key={d.id}>

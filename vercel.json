@@ -1,6 +1,5 @@
 {
   "rewrites": [    
-      { "source": "/booking-success/:bookingId", "destination": "/booking-success" },
       {"source": "/(.*)", "destination": "/"}
   ]
 }
