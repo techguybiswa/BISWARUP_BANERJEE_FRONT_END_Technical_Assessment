@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import Layout from "../layout/layout";
 import useFetch from "../hooks/useFetch";
 import {
@@ -6,6 +5,7 @@ import {
   BookingConfirmationResponse,
   ApiResponse,
   mapDoctorIdToImage,
+  BookingStatus,
 } from "../utils/constants";
 import LoadingSkeleton from "../components/common/LoadingSkeleton";
 import {
@@ -16,8 +16,9 @@ import {
   Typography,
 } from "@mui/material";
 import { formatTime, toCamelCase } from "../utils/utils";
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function BookingSuccess() {
   const { bookingId } = useParams();
@@ -40,7 +41,7 @@ function BookingSuccess() {
         <div style={{ marginTop: "50px" }}>
           {loading && <LoadingSkeleton />}
           {error && <p>Error while loading booking details</p>}
-          {bookingSuccessData && (
+          {bookingSuccessData?.status === BookingStatus.CONFIRMED && (
             <Card sx={{ maxWidth: 345 }}>
               <CardActionArea>
                 <CardMedia

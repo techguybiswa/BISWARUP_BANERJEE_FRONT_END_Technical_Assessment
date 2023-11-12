@@ -68,3 +68,8 @@ export interface BookingDetails {
   start: number;
   status: string; 
 }
+
+export enum BookingStatus {
+  CONFIRMED = "confirmed",
+  CANCEL = "cancel"
+}

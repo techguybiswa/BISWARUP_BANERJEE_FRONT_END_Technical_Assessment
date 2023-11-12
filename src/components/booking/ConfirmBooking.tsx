@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import {
   ApiResponse,
   BookingConfirmationResponse,
+  BookingStatus,
   Doctor,
   RequestType,
 } from "../../utils/constants";
@@ -52,7 +53,7 @@ function ConfirmBooking(props: ConfirmBookingProps) {
       start: confirmedBookingDetails.time as number,
       doctorId: confirmedBookingDetails.doctor.id as string,
       date: dayjs(confirmedBookingDetails.date).format("YYYY-MM-DD"),
-      status: "confirmed",
+      status: BookingStatus.CONFIRMED,
     },
   });
 
@@ -66,7 +67,7 @@ function ConfirmBooking(props: ConfirmBookingProps) {
         "/booking-success/" + bookingConfirmationData?.id;
       navigate(bookingSuccessUrl);
     };
-    if (bookingConfirmationData?.status === "confirmed") {
+    if (bookingConfirmationData?.status === BookingStatus.CONFIRMED) {
       navigateToBookingSuccess();
     }
   }, [bookingConfirmationData, navigate]);

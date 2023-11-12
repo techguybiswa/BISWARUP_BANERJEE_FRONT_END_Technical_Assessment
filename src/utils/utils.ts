@@ -14,7 +14,7 @@ export const toCamelCase = (str : string) : string => {
 }
 
 export const formatTime = (time: number) => {
-  if (!time) return;
+  if (!time) return 0;
   const hours = Math.floor(time)
   const mins = ( time - hours) *60
   return `${hours > 12 ? hours - 12 : hours}:${mins < 10 ? "0" + mins : mins} ${
