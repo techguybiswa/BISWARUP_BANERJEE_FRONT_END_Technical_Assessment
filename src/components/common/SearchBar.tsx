@@ -1,5 +1,4 @@
 import { TextField, InputAdornment } from "@mui/material";
-import React from "react";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 export default function SearchBar() {

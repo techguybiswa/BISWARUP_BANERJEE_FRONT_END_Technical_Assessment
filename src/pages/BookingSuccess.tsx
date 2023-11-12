@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../layout/layout";
 import useFetch from "../hooks/useFetch";
@@ -18,6 +17,7 @@ import {
 } from "@mui/material";
 import { formatTime, toCamelCase } from "../utils/utils";
 import * as dayjs from "dayjs";
+import { useEffect } from "react";
 
 function BookingSuccess() {
   const { bookingId } = useParams();

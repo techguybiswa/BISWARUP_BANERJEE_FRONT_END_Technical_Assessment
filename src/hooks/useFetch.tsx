@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ApiResponse, RequestType } from "../utils/constants";
 type ApiHeaders = {
   [key: string]: string;
