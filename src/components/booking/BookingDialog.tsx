@@ -90,7 +90,7 @@ function GetStep(
           }}
           confirmationButton={
             <AvailableTimeSlots.Button
-              buttonText={`Confirm Booking`}
+              buttonText={`Continue to Book`}
               onConfirm={() => setCurrentStep(Steps.BOOKING_CONFIRMATION)}
             />
           }
