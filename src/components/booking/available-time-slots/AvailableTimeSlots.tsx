@@ -18,6 +18,7 @@ import useFetch from "../../../hooks/useFetch";
 import LoadingSkeleton from "../../common/LoadingSkeleton";
 import AvailableTimeSlotsConfirmationButton from "./AvailableTimeSlotsConfirmationButton";
 import AvailableTimeSlotsHeader from "./AvailableTimeSlotsHeader";
+import Alert from "@mui/material/Alert";
 
 interface AvailableTimeSlotsProps {
   header?: ReactNode;
@@ -129,10 +130,10 @@ function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
             </Grid>
           ))
         ) : (
-          <Typography>
+          <Alert variant="outlined" severity="error" style={{ width: "100%" }}>
             Sorry, no more slots available today. Please select a different
             date.
-          </Typography>
+          </Alert>
         )}
       </Grid>
       {!!availableTimeSlots?.length && confirmationButton}
