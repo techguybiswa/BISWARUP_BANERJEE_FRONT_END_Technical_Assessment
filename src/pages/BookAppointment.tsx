@@ -53,7 +53,7 @@ function BookAppointment() {
             fontSize: "18px",
           }}
         >
-          Available sessions
+          Available Sessions
         </Typography>
         <Typography
           sx={{
@@ -62,7 +62,7 @@ function BookAppointment() {
             color: "#384853",
           }}
         >
-          Book 1:1 sessions from the options based on your needs
+          Book a slot with your doctor.
         </Typography>
       </>
     );
