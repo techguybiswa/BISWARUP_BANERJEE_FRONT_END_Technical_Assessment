@@ -1,27 +1,29 @@
 import Typography from "@mui/material/Typography";
 import dayjs, { Dayjs } from "dayjs";
 import Grid from "@mui/system/Unstable_Grid";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   formatTime,
   generateHourlySlotsBetweenTimes,
   getDateTimeOfSelectedSlot,
-} from "../../utils/utils";
+} from "../../../utils/utils";
 import {
   ApiResponse,
   BookingDetails,
-  Doctor,
+  ConfirmedBookingDetails,
   OpeningHours,
   RequestType,
-} from "../../utils/constants";
-import useFetch from "../../hooks/useFetch";
-import LoadingSkeleton from "../common/LoadingSkeleton";
+} from "../../../utils/constants";
+import useFetch from "../../../hooks/useFetch";
+import LoadingSkeleton from "../../common/LoadingSkeleton";
+import AvailableTimeSlotsConfirmationButton from "./AvailableTimeSlotsConfirmationButton";
+import AvailableTimeSlotsHeader from "./AvailableTimeSlotsHeader";
 
 interface AvailableTimeSlotsProps {
-  selectedDate: Dayjs;
-  selectedDoctor: Doctor;
-  selectedTimeSlot: number;
+  header?: ReactNode;
+  bookingDetails: BookingDetails;
   setSelectedTimeSlot: (selectedTimeSlot: number) => void;
+  confirmationButton?: ReactNode;
 }
 
 const getAllSlotsFromDate = (
@@ -42,30 +44,31 @@ const getAllSlotsFromDate = (
   return ([] as number[]).concat(...slots);
 };
 function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
-  const [allTimeSlots, setAllTimeSlots] = useState<number[]>();
+  const [availableTimeSlots, setAvailableTimeSlots] = useState<number[]>();
+  const { bookingDetails, setSelectedTimeSlot, confirmationButton, header } =
+    props;
+  const { selectedDate, selectedTime } = bookingDetails;
+
   const {
-    selectedDate,
-    selectedDoctor,
-    selectedTimeSlot,
-    setSelectedTimeSlot,
-  } = props;
-  const {
-    request: getAllBookingDetails,
-    data: allBookingDetails,
+    request: getAllConfirmedBookingDetails,
+    data: allConfirmedBookings,
     loading: loadingAllBookingDetails,
     error,
-  }: ApiResponse<BookingDetails[]> = useFetch({
+  }: ApiResponse<ConfirmedBookingDetails[]> = useFetch({
     endpoint: "booking",
     requestType: RequestType.GET,
   });
+
   useEffect(() => {
-    getAllBookingDetails();
+    getAllConfirmedBookingDetails();
   }, []);
+
   useEffect(() => {
-    if (allBookingDetails) {
+    if (allConfirmedBookings) {
+      const { selectedDate, selectedDoctor } = bookingDetails;
       const allSlots: number[] =
         getAllSlotsFromDate(selectedDate, selectedDoctor.opening_hours) ?? [];
-      const slotsAlreadyBooked = allBookingDetails
+      const slotsAlreadyBooked = allConfirmedBookings
         .filter(
           (b) =>
             b.doctorId === selectedDoctor.id &&
@@ -82,29 +85,35 @@ function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
               "minutes"
             )
         );
-        setAllTimeSlots(allAvailableSlots);
+        setAvailableTimeSlots(allAvailableSlots);
         setSelectedTimeSlot(allAvailableSlots[0]);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedDate, allBookingDetails]);
+  }, [selectedDate, allConfirmedBookings]);
+
+  if (loadingAllBookingDetails)
+    return <LoadingSkeleton height="550px" width="100px" />;
+
+  if (error) return <p>Error fetching booking details</p>;
+
   return (
     <>
       {" "}
-      <Grid container style={{ marginTop: "0", minWidth: "550px" }} spacing={2}>
-        {loadingAllBookingDetails && (
-          <LoadingSkeleton height="550px" width="100px" />
-        )}
-        {error && <p>Error fetching booking details</p>}
-        {allTimeSlots?.map((s) => (
-          <>
-            {" "}
+      {header}
+      <Grid
+        container
+        style={{ marginTop: "10px", minWidth: "550px" }}
+        spacing={2}
+      >
+        {availableTimeSlots?.length ? (
+          availableTimeSlots.map((s) => (
             <Grid xs={4} onClick={() => setSelectedTimeSlot(s)} key={s}>
               <div
                 style={{
                   color: "#0a243f",
                   border:
-                    selectedTimeSlot === s
+                    selectedTime === s
                       ? "1px solid #131313"
                       : "1px solid #e3e6ea",
                   borderRadius: "8px",
@@ -118,10 +127,20 @@ function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
                 </Typography>
               </div>
             </Grid>
-          </>
-        ))}
+          ))
+        ) : (
+          <Typography>
+            Sorry, no more slots available today. Please select a different
+            date.
+          </Typography>
+        )}
       </Grid>
+      {!!availableTimeSlots?.length && confirmationButton}
     </>
   );
 }
+
+AvailableTimeSlots.Button = AvailableTimeSlotsConfirmationButton;
+AvailableTimeSlots.Heading = AvailableTimeSlotsHeader;
+
 export default AvailableTimeSlots;

@@ -36,6 +36,7 @@ function UpcomingDates(props: UpcomingDatesProps) {
     >
       {upcomingDates?.map((d, index) => (
         <DateBox
+          key={index}
           onClick={() => setSelectedDate(upcomingDates[index])}
           style={{
             border:

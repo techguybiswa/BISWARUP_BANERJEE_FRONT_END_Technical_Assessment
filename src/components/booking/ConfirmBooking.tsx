@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import DateRangeIcon from "@mui/icons-material/DateRange";
@@ -13,32 +13,17 @@ import { useNavigate } from "react-router-dom";
 import {
   ApiResponse,
   BookingConfirmationResponse,
+  BookingDetails,
   BookingStatus,
-  Doctor,
   RequestType,
 } from "../../utils/constants";
 import Alert from "@mui/material/Alert";
-interface BookingDetails {
-  date: Dayjs;
-  time: number;
-  doctor: Doctor;
-  bookingName?: string;
-}
 interface ConfirmBookingProps {
   bookingDetails: BookingDetails;
 }
-
 function ConfirmBooking(props: ConfirmBookingProps) {
-  const { bookingDetails } = props;
-  const { date, time, doctor } = bookingDetails;
+  const { selectedDate, selectedDoctor, selectedTime } = props.bookingDetails;
   const [bookingName, setBookingName] = useState<string>("");
-
-  const confirmedBookingDetails: BookingDetails = {
-    date,
-    time,
-    doctor,
-    bookingName,
-  };
 
   const {
     request: confirmAppointment,
@@ -49,10 +34,10 @@ function ConfirmBooking(props: ConfirmBookingProps) {
     endpoint: "booking",
     requestType: RequestType.POST,
     body: {
-      name: confirmedBookingDetails.bookingName as string,
-      start: confirmedBookingDetails.time as number,
-      doctorId: confirmedBookingDetails.doctor.id as string,
-      date: dayjs(confirmedBookingDetails.date).format("YYYY-MM-DD"),
+      name: bookingName,
+      start: selectedTime,
+      doctorId: selectedDoctor.id as string,
+      date: dayjs(selectedDate).format("YYYY-MM-DD"),
       status: BookingStatus.CONFIRMED,
     },
   });
@@ -104,7 +89,7 @@ function ConfirmBooking(props: ConfirmBookingProps) {
               color: "#131313",
             }}
           >
-            {dayjs(date).format("DD MMM, ddd")}
+            {dayjs(selectedDate).format("DD MMM, ddd")}
           </Typography>
         </div>
         <div style={{ display: "flex" }}>
@@ -116,7 +101,7 @@ function ConfirmBooking(props: ConfirmBookingProps) {
               color: "#131313",
             }}
           >
-            {formatTime(time)}
+            {formatTime(selectedTime)}
           </Typography>
         </div>
         <div style={{ display: "flex" }}>

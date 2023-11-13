@@ -2,11 +2,10 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import dayjs, { Dayjs } from "dayjs";
-import AvailableTimeSlots from "../components/booking/AvailableTimeSlots";
+import AvailableTimeSlots from "../components/booking/available-time-slots/AvailableTimeSlots";
 import { ApiResponse, Doctor, RequestType } from "../utils/constants";
 
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
 import ViewAllDatesDialog from "../components/booking/BookingDialog";
 import ConfirmBooking from "../components/booking/ConfirmBooking";
 import Layout from "../layout/layout";
@@ -43,6 +42,9 @@ function BookAppointment() {
   useEffect(() => {
     setShowBookingConfirmation(false);
   }, [selectedDate, selectedTimeSlot, viewAllDates]);
+  const goToBookingConfirmation = () => {
+    if (selectedDate && selectedTimeSlot) setShowBookingConfirmation(true);
+  };
   const SelectDateHeader = () => {
     return (
       <>
@@ -67,37 +69,6 @@ function BookAppointment() {
       </>
     );
   };
-  const ConfirmBookingButton = () => {
-    return (
-      <>
-        {" "}
-        <div style={{ marginTop: "20px" }}>
-          <Button
-            variant="contained"
-            sx={{
-              width: "100%",
-              backgroundColor: "#05051b",
-              ":hover": {
-                backgroundColor: "#05051b",
-              },
-            }}
-            onClick={() => setShowBookingConfirmation(true)}
-          >
-            <Typography
-              sx={{
-                color: "white",
-                fontWeight: "500",
-                width: "100%",
-              }}
-            >
-              Book Session for {dayjs(selectedDate).format("DD MMM YYYY")}{" "}
-            </Typography>
-          </Button>
-        </div>
-      </>
-    );
-  };
-
   return (
     <>
       <Layout heading="Book Appointment">
@@ -118,7 +89,6 @@ function BookAppointment() {
                     }}
                   >
                     <>
-                      {" "}
                       <SelectDateHeader />
                       <UpcomingDates
                         selectedDate={selectedDate}
@@ -134,37 +104,37 @@ function BookAppointment() {
                           marginTop: "20px",
                         }}
                       >
-                        <Typography
-                          sx={{
-                            fontWeight: "500",
-                            fontSize: "14px",
-                            color: "#131313",
-                            paddingBottom: "20px",
-                            borderBottom: "1px solid #dee2e6!important",
-                          }}
-                        >
-                          Available time slots
-                        </Typography>
                         <div style={{ marginTop: "10px" }}>
                           <AvailableTimeSlots
-                            selectedDate={selectedDate}
-                            selectedTimeSlot={selectedTimeSlot as number}
                             setSelectedTimeSlot={setSelectedTimeSlot}
-                            selectedDoctor={doctor ?? null}
+                            header={
+                              <AvailableTimeSlots.Heading text="Available time slots" />
+                            }
+                            bookingDetails={{
+                              selectedDate,
+                              selectedTime: selectedTimeSlot as number,
+                              selectedDoctor: doctor,
+                            }}
+                            confirmationButton={
+                              <AvailableTimeSlots.Button
+                                buttonText={`Book Session for ${dayjs(
+                                  selectedDate
+                                ).format("DD MMM YYYY")}`}
+                                onConfirm={goToBookingConfirmation}
+                              />
+                            }
                           />
                         </div>
-                        {showBookingConfirmation ? (
+                        {showBookingConfirmation && (
                           <div style={{ marginTop: "20px" }}>
                             <ConfirmBooking
                               bookingDetails={{
-                                date: selectedDate,
-                                time: selectedTimeSlot as number,
-                                doctor: doctor,
+                                selectedDate,
+                                selectedTime: selectedTimeSlot as number,
+                                selectedDoctor: doctor,
                               }}
                             />
                           </div>
-                        ) : (
-                          <ConfirmBookingButton />
                         )}
                       </div>
                     )}

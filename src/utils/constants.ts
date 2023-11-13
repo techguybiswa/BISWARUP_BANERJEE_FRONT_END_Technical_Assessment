@@ -1,3 +1,5 @@
+import  { Dayjs } from "dayjs";
+
 import DoctorRandomImage1 from "../assets/doc7.jpeg";
 import DoctorRandomImage2 from "../assets/doc3.jpeg";
 import DoctorRandomImage3 from "../assets/doc4.jpeg";
@@ -60,7 +62,7 @@ export interface BookingConfirmationResponse {
   status: string; 
 }
 
-export interface BookingDetails {
+export interface ConfirmedBookingDetails {
   date: string;
   doctorId: string;
   id: string;
@@ -72,4 +74,10 @@ export interface BookingDetails {
 export enum BookingStatus {
   CONFIRMED = "confirmed",
   CANCEL = "cancel"
+}
+
+export interface BookingDetails {
+  selectedDate: Dayjs;
+  selectedTime: number;
+  selectedDoctor: Doctor;
 }
