@@ -1,0 +1,161 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>AvailableTimeSlots.tsx</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="../../../../../assets/source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="../../../../../assets/source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="../../../../../index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src/components/booking/available-time-slots/AvailableTimeSlots.tsx</td><td class="">100.00%</td><td class="">80%</td><td class="">184</td><td class="">184</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import Typography from &quot;@mui/material/Typography&quot;;
+import dayjs, { Dayjs } from &quot;dayjs&quot;;
+import Grid from &quot;@mui/system/Unstable_Grid&quot;;
+import { ReactNode, useEffect, useState } from &quot;react&quot;;
+import {
+  formatTime,
+  generateHourlySlotsBetweenTimes,
+  getDateTimeOfSelectedSlot,
+} from &quot;../../../utils/utils&quot;;
+import {
+  ApiResponse,
+  BookingDetails,
+  ConfirmedBookingDetails,
+  OpeningHours,
+  RequestType,
+} from &quot;../../../utils/constants&quot;;
+import useFetch from &quot;../../../hooks/useFetch&quot;;
+import LoadingSkeleton from &quot;../../common/LoadingSkeleton&quot;;
+
+interface AvailableTimeSlotsProps {
+  header?: ReactNode;
+  bookingDetails: BookingDetails;
+  setSelectedTimeSlot: (selectedTimeSlot: number) =&gt; void;
+  confirmationButton?: ReactNode;
+}
+
+const getAllSlotsFromDate = (
+  date: Dayjs,
+  openingHours: OpeningHours[] | null
+): number[] | null =&gt; {
+  if (!openingHours) return null;
+  const dayOfTheWeek = dayjs(date).format(&quot;ddd&quot;).toUpperCase();
+  const specificDayOpeningHours = openingHours.filter(
+    (h) =&gt; h.day === dayOfTheWeek
+  );
+  const slots: number[][] = specificDayOpeningHours.map(({ start, end }) =&gt;
+    generateHourlySlotsBetweenTimes(start, end)
+  );
+  // we are using map and filter in order to support the use case where the same &quot;day&quot; has multiple different start and end.
+  // for example: [{start: 6, end: 13, isClosed: false, day: &#x27;MON&#x27;}, {start: 20, end: 22, isClosed: false, day: &#x27;MON&#x27;}]
+  // in this above example &#x27;MON&#x27; has a non continous opening_hours
+  return ([] as number[]).concat(...slots);
+};
+function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
+  const [allTimeSlots, setAllTimeSlots] = useState&lt;number[]&gt;();
+  const { bookingDetails, setSelectedTimeSlot, confirmationButton, header } =
+    props;
+  const { selectedDate, selectedTime } = bookingDetails;
+
+  const {
+    request: getAllConfirmedBookingDetails,
+    data: allConfirmedBookings,
+    loading: loadingAllBookingDetails,
+    error,
+  }: ApiResponse&lt;ConfirmedBookingDetails[]&gt; = useFetch({
+    endpoint: &quot;booking&quot;,
+    requestType: RequestType.GET,
+  });
+
+  useEffect(() =&gt; {
+    getAllConfirmedBookingDetails();
+  }, []);
+
+  useEffect(() =&gt; {
+    if (allConfirmedBookings) {
+      const { selectedDate, selectedDoctor } = bookingDetails;
+      const allSlots: number[] =
+        getAllSlotsFromDate(selectedDate, selectedDoctor.opening_hours) ?? [];
+      const slotsAlreadyBooked = allConfirmedBookings
+        .filter(
+          (b) =&gt;
+            b.doctorId === selectedDoctor.id &amp;&amp;
+            b.date === dayjs(selectedDate).format(&quot;YYYY-MM-DD&quot;)
+        )
+        .map((b) =&gt; b.start);
+      const currentDateTime = dayjs();
+      if (allSlots) {
+        const allAvailableSlots = allSlots.filter(
+          (s) =&gt;
+            slotsAlreadyBooked.indexOf(s) == -1 &amp;&amp;
+            getDateTimeOfSelectedSlot(selectedDate, s).isAfter(
+              currentDateTime,
+              &quot;minutes&quot;
+            )
+        );
+        setAllTimeSlots(allAvailableSlots);
+        setSelectedTimeSlot(allAvailableSlots[0]);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDate, allConfirmedBookings]);
+
+  if (loadingAllBookingDetails)
+    return &lt;LoadingSkeleton height=&quot;550px&quot; width=&quot;100px&quot; /&gt;;
+
+  if (error) return &lt;p&gt;Error fetching booking details&lt;/p&gt;;
+
+  return (
+    &lt;&gt;
+      {&quot; &quot;}
+      {header}
+      &lt;Grid
+        container
+        style={{ marginTop: &quot;10px&quot;, minWidth: &quot;550px&quot; }}
+        spacing={2}
+      &gt;
+        {allTimeSlots?.length ? (
+          allTimeSlots.map((s) =&gt; (
+            &lt;&gt;
+              {&quot; &quot;}
+              &lt;Grid xs={4} onClick={() =&gt; setSelectedTimeSlot(s)} key={s}&gt;
+                &lt;div
+                  style={{
+                    color: &quot;#0a243f&quot;,
+                    border:
+                      selectedTime === s
+                        ? &quot;1px solid #131313&quot;
+                        : &quot;1px solid #e3e6ea&quot;,
+                    borderRadius: &quot;8px&quot;,
+                    padding: &quot;10px&quot;,
+                    textAlign: &quot;center&quot;,
+                    cursor: &quot;pointer&quot;,
+                  }}
+                &gt;
+                  &lt;Typography style={{ fontSize: &quot;16px&quot;, fontWeight: &quot;500&quot; }}&gt;
+                    {formatTime(s)}
+                  &lt;/Typography&gt;
+                &lt;/div&gt;
+              &lt;/Grid&gt;
+            &lt;/&gt;
+          ))
+        ) : (
+          &lt;Typography&gt;
+            Sorry, no more slots available today. Please select a different
+            date.
+          &lt;/Typography&gt;
+        )}
+      &lt;/Grid&gt;
+      {!!allTimeSlots?.length &amp;&amp; confirmationButton}
+    &lt;/&gt;
+  );
+}
+export default AvailableTimeSlots;
+</textarea><pre id="annotations" style="display:none">[]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 13 Nov 2023 06:41:23 GMT</p>
+    </body>
+  </html>
+  

@@ -1,0 +1,150 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>BookingDialog.tsx</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="../../../../assets/source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="../../../../assets/source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="../../../../index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src/components/booking/BookingDialog.tsx</td><td class="">100.00%</td><td class="">80%</td><td class="">145</td><td class="">145</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import Typography from &quot;@mui/material/Typography&quot;;
+import dayjs, { Dayjs } from &quot;dayjs&quot;;
+import { useState } from &quot;react&quot;;
+import { Dialog, DialogContent, Button } from &quot;@mui/material&quot;;
+import { Doctor, Steps } from &quot;../../utils/constants&quot;;
+import AvailableTimeSlots from &quot;./available-time-slots/AvailableTimeSlots&quot;;
+import { DateCalendar } from &quot;@mui/x-date-pickers/DateCalendar&quot;;
+import { LocalizationProvider } from &quot;@mui/x-date-pickers/LocalizationProvider&quot;;
+import { AdapterDayjs } from &quot;@mui/x-date-pickers/AdapterDayjs&quot;;
+import ConfirmBooking from &quot;./ConfirmBooking&quot;;
+import AvailableTimeSlotsHeader from &quot;./available-time-slots/AvailableTimeSlotsHeader&quot;;
+import AvailableTimeSlotsConfirmationButton from &quot;./available-time-slots/AvailableTimeSlotsConfirmationButton&quot;;
+
+interface ViewAllDatesDialogProps {
+  handleClose: () =&gt; void;
+  viewAllDates: boolean;
+  doctor: Doctor;
+}
+
+function GetStep(
+  step: Steps,
+  setCurrentStep: (step: Steps) =&gt; void,
+  doctor: Doctor
+) {
+  const [selectedDate, setSelectedDate] = useState&lt;Dayjs&gt;(dayjs());
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState&lt;number&gt;(0);
+
+  switch (step) {
+    case Steps.DATE_SELECTION:
+      return (
+        &lt;&gt;
+          &lt;Typography
+            sx={{
+              fontWeight: &quot;500&quot;,
+              fontSize: &quot;16px&quot;,
+              color: &quot;#131313&quot;,
+              paddingBottom: &quot;10px&quot;,
+              borderBottom: &quot;1px solid #dee2e6!important&quot;,
+            }}
+          &gt;
+            Select date
+          &lt;/Typography&gt;
+          &lt;LocalizationProvider dateAdapter={AdapterDayjs}&gt;
+            &lt;DateCalendar
+              value={selectedDate}
+              onChange={(newValue) =&gt; setSelectedDate(newValue as Dayjs)}
+              disablePast={true}
+              focusedView={&quot;day&quot;}
+              maxDate={dayjs().add(1, &quot;months&quot;)}
+              views={[&quot;day&quot;]}
+            /&gt;
+          &lt;/LocalizationProvider&gt;
+          &lt;Button
+            variant=&quot;contained&quot;
+            sx={{
+              width: &quot;100%&quot;,
+              backgroundColor: &quot;#05051b&quot;,
+              &quot;:hover&quot;: {
+                backgroundColor: &quot;#05051b&quot;,
+              },
+            }}
+            onClick={() =&gt; setCurrentStep(Steps.TIME_SELECTION)}
+          &gt;
+            &lt;Typography
+              sx={{
+                color: &quot;white&quot;,
+                fontWeight: &quot;500&quot;,
+                width: &quot;100%&quot;,
+              }}
+            &gt;
+              Continue
+            &lt;/Typography&gt;
+          &lt;/Button&gt;
+        &lt;/&gt;
+      );
+      break;
+    case Steps.TIME_SELECTION:
+      return (
+        &lt;&gt;
+          &lt;AvailableTimeSlots
+            header={
+              &lt;AvailableTimeSlotsHeader
+                text={`Select time slot for ${dayjs(selectedDate).format(
+                  &quot;DD MMM, ddd&quot;
+                )}`}
+              /&gt;
+            }
+            setSelectedTimeSlot={setSelectedTimeSlot}
+            bookingDetails={{
+              selectedDate: selectedDate,
+              selectedTime: selectedTimeSlot as number,
+              selectedDoctor: doctor,
+            }}
+            confirmationButton={
+              &lt;AvailableTimeSlotsConfirmationButton
+                buttonText={`Confirm Booking`}
+                onConfirm={() =&gt; setCurrentStep(Steps.BOOKING_CONFIRMATION)}
+              /&gt;
+            }
+          /&gt;
+        &lt;/&gt;
+      );
+      break;
+    case Steps.BOOKING_CONFIRMATION:
+      return (
+        &lt;&gt;
+          &lt;ConfirmBooking
+            bookingDetails={{
+              selectedDate,
+              selectedTime: selectedTimeSlot,
+              selectedDoctor: doctor,
+            }}
+          /&gt;
+        &lt;/&gt;
+      );
+      break;
+  }
+}
+
+function ViewAllDatesDialog(props: ViewAllDatesDialogProps) {
+  const { viewAllDates, handleClose, doctor } = props;
+  const [currentStep, setCurrentStep] = useState&lt;Steps&gt;(Steps.DATE_SELECTION);
+  const StepComponent = GetStep(currentStep, setCurrentStep, doctor);
+  return (
+    &lt;&gt;
+      &lt;Dialog open={viewAllDates} onClose={handleClose}&gt;
+        &lt;DialogContent&gt;{StepComponent}&lt;/DialogContent&gt;
+      &lt;/Dialog&gt;
+    &lt;/&gt;
+  );
+}
+export default ViewAllDatesDialog;
+</textarea><pre id="annotations" style="display:none">[]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 13 Nov 2023 06:41:23 GMT</p>
+    </body>
+  </html>
+  

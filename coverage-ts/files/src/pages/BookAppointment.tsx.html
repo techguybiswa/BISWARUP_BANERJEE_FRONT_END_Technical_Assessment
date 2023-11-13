@@ -1,0 +1,179 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>BookAppointment.tsx</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="../../../assets/source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="../../../assets/source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="../../../index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src/pages/BookAppointment.tsx</td><td class="">100.00%</td><td class="">80%</td><td class="">176</td><td class="">176</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import Typography from &quot;@mui/material/Typography&quot;;
+import { useEffect, useState } from &quot;react&quot;;
+import { useParams } from &quot;react-router-dom&quot;;
+import dayjs, { Dayjs } from &quot;dayjs&quot;;
+import AvailableTimeSlots from &quot;../components/booking/available-time-slots/AvailableTimeSlots&quot;;
+import { ApiResponse, Doctor, RequestType } from &quot;../utils/constants&quot;;
+
+import Grid from &quot;@mui/material/Grid&quot;;
+import ViewAllDatesDialog from &quot;../components/booking/BookingDialog&quot;;
+import ConfirmBooking from &quot;../components/booking/ConfirmBooking&quot;;
+import Layout from &quot;../layout/layout&quot;;
+import useFetch from &quot;../hooks/useFetch&quot;;
+import DoctorProfile from &quot;../components/doctor/DoctorProfile&quot;;
+import LoadingSkeleton from &quot;../components/common/LoadingSkeleton&quot;;
+import UpcomingDates from &quot;../components/booking/UpcomingDates&quot;;
+import ViewAllDates from &quot;../components/booking/ViewAllDates&quot;;
+import AvailableTimeSlotsHeader from &quot;../components/booking/available-time-slots/AvailableTimeSlotsHeader&quot;;
+import AvailableTimeSlotsConfirmationButton from &quot;../components/booking/available-time-slots/AvailableTimeSlotsConfirmationButton&quot;;
+
+function BookAppointment() {
+  const [selectedDate, setSelectedDate] = useState&lt;Dayjs&gt;();
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState&lt;number&gt;();
+  const [viewAllDates, setViewAllDates] = useState&lt;boolean&gt;(false);
+  const [showBookingConfirmation, setShowBookingConfirmation] =
+    useState&lt;boolean&gt;(false);
+  const { id: doctorId } = useParams();
+  const handleClose = () =&gt; {
+    setViewAllDates(false);
+  };
+  const {
+    request: getDoctorDetails,
+    data: doctor,
+    loading,
+    error,
+  }: ApiResponse&lt;Doctor&gt; = useFetch({
+    endpoint: &quot;doctor/&quot; + doctorId,
+    requestType: RequestType.GET,
+  });
+
+  useEffect(() =&gt; {
+    getDoctorDetails();
+  }, []);
+
+  useEffect(() =&gt; {
+    setShowBookingConfirmation(false);
+  }, [selectedDate, selectedTimeSlot, viewAllDates]);
+  const goToBookingConfirmation = () =&gt; {
+    if (selectedDate &amp;&amp; selectedTimeSlot) setShowBookingConfirmation(true);
+  };
+  const SelectDateHeader = () =&gt; {
+    return (
+      &lt;&gt;
+        {&quot; &quot;}
+        &lt;Typography
+          sx={{
+            fontWeight: &quot;600&quot;,
+            fontSize: &quot;18px&quot;,
+          }}
+        &gt;
+          Available Sessions
+        &lt;/Typography&gt;
+        &lt;Typography
+          sx={{
+            fontWeight: &quot;300&quot;,
+            fontSize: &quot;12px&quot;,
+            color: &quot;#384853&quot;,
+          }}
+        &gt;
+          Book a slot with your doctor.
+        &lt;/Typography&gt;
+      &lt;/&gt;
+    );
+  };
+  return (
+    &lt;&gt;
+      &lt;Layout heading=&quot;Book Appointment&quot;&gt;
+        &lt;div style={{ marginTop: &quot;50px&quot;, marginBottom: &quot;100px&quot; }}&gt;
+          {loading &amp;&amp; &lt;LoadingSkeleton /&gt;}
+          {error &amp;&amp; &lt;p&gt;Error while loading doctor profile&lt;/p&gt;}
+          {doctor &amp;&amp; (
+            &lt;&gt;
+              &lt;DoctorProfile doctor={doctor} /&gt;
+              &lt;Grid container spacing={2}&gt;
+                &lt;Grid xs={12} md={3} style={{ marginTop: &quot;50px&quot; }}&gt;&lt;/Grid&gt;
+                &lt;Grid xs={12} md={6} style={{ marginTop: &quot;50px&quot; }}&gt;
+                  &lt;div
+                    style={{
+                      border: &quot;solid 1px #e3e6ea&quot;,
+                      padding: &quot;20px&quot;,
+                      borderRadius: &quot;10px&quot;,
+                    }}
+                  &gt;
+                    &lt;&gt;
+                      {&quot; &quot;}
+                      &lt;SelectDateHeader /&gt;
+                      &lt;UpcomingDates
+                        selectedDate={selectedDate}
+                        setSelectedDate={setSelectedDate}
+                        viewAllDatesComponent={
+                          &lt;ViewAllDates setViewAllDates={setViewAllDates} /&gt;
+                        }
+                      /&gt;
+                    &lt;/&gt;
+                    {selectedDate &amp;&amp; (
+                      &lt;div
+                        style={{
+                          marginTop: &quot;20px&quot;,
+                        }}
+                      &gt;
+                        &lt;div style={{ marginTop: &quot;10px&quot; }}&gt;
+                          &lt;AvailableTimeSlots
+                            setSelectedTimeSlot={setSelectedTimeSlot}
+                            header={
+                              &lt;AvailableTimeSlotsHeader text=&quot;Available time slots&quot; /&gt;
+                            }
+                            bookingDetails={{
+                              selectedDate,
+                              selectedTime: selectedTimeSlot as number,
+                              selectedDoctor: doctor,
+                            }}
+                            confirmationButton={
+                              &lt;AvailableTimeSlotsConfirmationButton
+                                buttonText={`Book Session for ${dayjs(
+                                  selectedDate
+                                ).format(&quot;DD MMM YYYY&quot;)}`}
+                                onConfirm={goToBookingConfirmation}
+                              /&gt;
+                            }
+                          /&gt;
+                        &lt;/div&gt;
+                        {showBookingConfirmation &amp;&amp; (
+                          &lt;div style={{ marginTop: &quot;20px&quot; }}&gt;
+                            &lt;ConfirmBooking
+                              bookingDetails={{
+                                selectedDate,
+                                selectedTime: selectedTimeSlot as number,
+                                selectedDoctor: doctor,
+                              }}
+                            /&gt;
+                          &lt;/div&gt;
+                        )}
+                      &lt;/div&gt;
+                    )}
+                  &lt;/div&gt;
+                &lt;/Grid&gt;
+              &lt;/Grid&gt;
+              {viewAllDates &amp;&amp; (
+                &lt;ViewAllDatesDialog
+                  viewAllDates={viewAllDates}
+                  handleClose={handleClose}
+                  doctor={doctor}
+                /&gt;
+              )}
+            &lt;/&gt;
+          )}
+        &lt;/div&gt;
+      &lt;/Layout&gt;
+    &lt;/&gt;
+  );
+}
+export default BookAppointment;
+</textarea><pre id="annotations" style="display:none">[]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 13 Nov 2023 06:41:23 GMT</p>
+    </body>
+  </html>
+  

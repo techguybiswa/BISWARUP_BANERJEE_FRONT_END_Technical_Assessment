@@ -1,0 +1,65 @@
+{
+  "fileCounts": {},
+  "anys": [
+    {
+      "file": "src/hooks/useFetch.tsx",
+      "line": 17,
+      "character": 8,
+      "text": "BASE_URL",
+      "kind": 1
+    },
+    {
+      "file": "src/hooks/useFetch.tsx",
+      "line": 17,
+      "character": 35,
+      "text": "VITE_NECKTIE_BASE_URL",
+      "kind": 1
+    },
+    {
+      "file": "src/hooks/useFetch.tsx",
+      "line": 18,
+      "character": 14,
+      "text": "BASE_URL",
+      "kind": 1
+    },
+    {
+      "file": "src/hooks/useFetch.tsx",
+      "line": 24,
+      "character": 33,
+      "text": "VITE_NECKTIE_API_KEY",
+      "kind": 1
+    },
+    {
+      "file": "src/hooks/useFetch.tsx",
+      "line": 42,
+      "character": 13,
+      "text": "data",
+      "kind": 1
+    },
+    {
+      "file": "src/hooks/useFetch.tsx",
+      "line": 46,
+      "character": 14,
+      "text": "error",
+      "kind": 1
+    },
+    {
+      "file": "src/hooks/useFetch.tsx",
+      "line": 47,
+      "character": 20,
+      "text": "error",
+      "kind": 1
+    },
+    {
+      "file": "src/hooks/useFetch.tsx",
+      "line": 47,
+      "character": 26,
+      "text": "message",
+      "kind": 1
+    }
+  ],
+  "percentage": 99.50890116635973,
+  "total": 1629,
+  "covered": 1621,
+  "uncovered": 8
+}

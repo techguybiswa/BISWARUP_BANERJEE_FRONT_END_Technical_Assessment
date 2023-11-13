@@ -1,0 +1,134 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>DoctorCard.tsx</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="../../../../assets/source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="../../../../assets/source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="../../../../index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src/components/doctor/DoctorCard.tsx</td><td class="">100.00%</td><td class="">80%</td><td class="">101</td><td class="">101</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import Typography from &quot;@mui/material/Typography&quot;;
+
+import Grid from &quot;@mui/system/Unstable_Grid&quot;;
+import WorkOutlineRoundedIcon from &quot;@mui/icons-material/WorkOutlineRounded&quot;;
+import LocalActivityIcon from &quot;@mui/icons-material/LocalActivity&quot;;
+import { toCamelCase } from &quot;../../utils/utils&quot;;
+import { Doctor } from &quot;../../utils/constants&quot;;
+import styled from &quot;styled-components&quot;;
+
+interface DoctorCardProps {
+  doctor: Doctor;
+  imageUrl: string;
+}
+const CardContainer = styled(&quot;div&quot;)`
+  border: 1px solid #f1f2f4;
+  border-radius: 5px;
+  padding: 0.5rem;
+`;
+const CardImageContainer = styled.div&lt;{ imageUrl: string }&gt;`
+  background-image: url(${(props) =&gt; props.imageUrl});
+  width: 100%;
+  border-radius: 5px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+`;
+const CardInfoContainer = styled(&quot;div&quot;)`
+  margin-top: 10px;
+  border-radius: 5px;
+  background-color: #fafafa;
+  padding: 20px;
+  display: flex;
+`;
+const InfoTypography = styled(Typography)`
+  font-weight: 600 !important;
+  font-size: 14px !important;
+`;
+const InfoTypographySpan = styled(&quot;span&quot;)`
+  display: block;
+  font-size: 12px;
+  color: #6b7b8a;
+  font-weight: 400;
+`;
+function DoctorCard(props: DoctorCardProps) {
+  const { doctor, imageUrl } = props;
+  return (
+    &lt;CardContainer&gt;
+      &lt;CardImageContainer imageUrl={imageUrl} /&gt;
+      &lt;Typography
+        sx={{
+          fontWeight: &quot;500&quot;,
+          marginTop: &quot;7px&quot;,
+          fontSize: &quot;18px&quot;,
+        }}
+      &gt;
+        {toCamelCase(doctor.name)}
+      &lt;/Typography&gt;
+      &lt;Grid container style={{ marginTop: &quot;10px&quot; }} spacing={2}&gt;
+        &lt;Grid xs={1}&gt;
+          &lt;WorkOutlineRoundedIcon style={{ fontSize: &quot;16px&quot; }} /&gt;
+        &lt;/Grid&gt;
+        &lt;Grid xs={11}&gt;
+          &lt;Typography
+            sx={{
+              fontSize: &quot;14px&quot;,
+              color: &quot;#384853&quot;,
+            }}
+          &gt;
+            MBBS, MD - Medicine, DM - Cardiology Cardiologist,Interventional
+            Cardiologist
+          &lt;/Typography&gt;
+        &lt;/Grid&gt;
+      &lt;/Grid&gt;
+      &lt;Grid container style={{ marginTop: &quot;5px&quot; }}&gt;
+        &lt;Grid xs={1}&gt;
+          &lt;LocalActivityIcon
+            style={{
+              fontSize: &quot;18px&quot;,
+              color: &quot;rgb(255, 194, 0)&quot;,
+            }}
+          /&gt;
+        &lt;/Grid&gt;
+        &lt;Grid xs={11}&gt;
+          &lt;Typography
+            sx={{
+              fontWeight: &quot;400&quot;,
+              fontSize: &quot;14px&quot;,
+              lineHeight: &quot;18px&quot;,
+              color: &quot;#384853&quot;,
+            }}
+          &gt;
+            Highly Rated!
+          &lt;/Typography&gt;
+        &lt;/Grid&gt;
+      &lt;/Grid&gt;
+      &lt;CardInfoContainer&gt;
+        &lt;Grid xs={8}&gt;
+          &lt;InfoTypography&gt;
+            {&quot; &quot;}
+            &lt;InfoTypographySpan&gt;District&lt;/InfoTypographySpan&gt;
+            {doctor.address.district}
+          &lt;/InfoTypography&gt;
+        &lt;/Grid&gt;{&quot; &quot;}
+        &lt;Grid xs={4}&gt;
+          &lt;InfoTypography&gt;
+            {&quot; &quot;}
+            &lt;InfoTypographySpan&gt;Experience&lt;/InfoTypographySpan&gt;
+            10 years
+          &lt;/InfoTypography&gt;
+        &lt;/Grid&gt;{&quot; &quot;}
+      &lt;/CardInfoContainer&gt;
+    &lt;/CardContainer&gt;
+  );
+}
+export default DoctorCard;
+</textarea><pre id="annotations" style="display:none">[]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 13 Nov 2023 06:41:23 GMT</p>
+    </body>
+  </html>
+  
