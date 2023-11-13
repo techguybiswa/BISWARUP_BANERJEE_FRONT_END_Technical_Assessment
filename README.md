@@ -60,6 +60,7 @@ After the user selects, one of the dates from the most recent dates along with t
 
 <img width="680" alt="Screenshot 2023-11-12 at 1 56 30 PM" src="https://github.com/techguybiswa/necktie-docs-book-app/assets/25161788/4f89b1a8-c837-4e00-b82e-dbe03d646ce4">
 
+
 Once he clicks on it, the final booking step is revealed where he has to enter the booking name and click on "Confirm".
 
 Again the reason to show the user the "Book Session" button was to make that the user does not feel too overwhelmed with too many things right from the start but to slowly render things as needed. 
@@ -91,6 +92,10 @@ This has been done so that the user need not to switch back and forth from the m
 <img width="1200" alt="Screenshot 2023-11-12 at 2 04 26 PM" src="https://github.com/techguybiswa/necktie-docs-book-app/assets/25161788/5de22d2c-280a-4041-b2e0-c6b3350a3b70">
 
 We can see that for all the "continue" buttons the color scheme has been "black" and for the confirmation buttons, the color scheme has been "Green".
+
+When  there are no available slots for the selected date we display an error: 
+
+<img width="702" alt="Screenshot 2023-11-13 at 6 57 40 PM" src="https://github.com/techguybiswa/BISWARUP_BANERJEE_FRONT_END_Technical_Assessment/assets/25161788/805e7227-4dff-442c-8986-7f951bd8ad9a">
 
 ### Typescript Coverage and Compile 
 
