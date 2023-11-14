@@ -116,17 +116,24 @@ function BookAppointment() {
                               selectedDoctor: doctor,
                             }}
                             confirmationButton={
-                              <AvailableTimeSlots.Button
-                                buttonText={`Book Session for ${dayjs(
-                                  selectedDate
-                                ).format("DD MMM YYYY")}`}
-                                onConfirm={goToBookingConfirmation}
-                              />
+                              !showBookingConfirmation && (
+                                <AvailableTimeSlots.Button
+                                  buttonText={`Book Session for ${dayjs(
+                                    selectedDate
+                                  ).format("DD MMM YYYY")}`}
+                                  onConfirm={goToBookingConfirmation}
+                                />
+                              )
                             }
                           />
                         </div>
                         {showBookingConfirmation && (
-                          <div style={{ marginTop: "20px" }}>
+                          <div
+                            style={{
+                              marginTop: "20px",
+                              paddingTop: "20px",
+                            }}
+                          >
                             <ConfirmBooking
                               bookingDetails={{
                                 selectedDate,

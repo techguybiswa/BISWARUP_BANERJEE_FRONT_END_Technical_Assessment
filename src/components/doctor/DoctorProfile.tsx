@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import CoverPic from "../../assets/coverpic.jpeg";
+import CoverPic from "../../assets/coverpic.webp";
 
 import { Doctor, mapDoctorIdToImage } from "../../utils/constants";
 import { toCamelCase } from "../../utils/utils";
@@ -12,6 +12,15 @@ const BookAppointmentCover = styled.div<{ imageUrl: string }>`
   background-position: center;
   -webkit-filter: brightness(50%);
   border-radius: 5px;
+  animation: 0.5s ease-out 0s 1 FadeIn;
+  @keyframes FadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `;
 
 const BookAppointmentProfilePhoto = styled.div<{ imageUrl: string }>`

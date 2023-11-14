@@ -1,10 +1,10 @@
 import  { Dayjs } from "dayjs";
 
-import DoctorRandomImage1 from "../assets/doc7.jpeg";
-import DoctorRandomImage2 from "../assets/doc3.jpeg";
-import DoctorRandomImage3 from "../assets/doc4.jpeg";
-import DoctorRandomImage4 from "../assets/doc5.jpeg";
-import DoctorRandomImage5 from "../assets/doc6.jpeg";
+import DoctorRandomImage1 from "../assets/doc7.webp";
+import DoctorRandomImage2 from "../assets/doc3.webp";
+import DoctorRandomImage3 from "../assets/doc4.webp";
+import DoctorRandomImage4 from "../assets/doc5.webp";
+import DoctorRandomImage5 from "../assets/doc6.webp";
 
 export const mapDoctorIdToImage: Record<string, string> = {
   M2159: DoctorRandomImage1,
