@@ -11,6 +11,7 @@ import {
   ApiResponse,
   BookingConfirmationResponse,
   BookingDetails,
+  BookingStatus,
   OpeningHours,
   RequestType,
 } from "../../../utils/constants";
@@ -73,7 +74,8 @@ function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
         .filter(
           (b) =>
             b.doctorId === selectedDoctor.id &&
-            b.date === dayjs(selectedDate).format("YYYY-MM-DD")
+            b.date === dayjs(selectedDate).format("YYYY-MM-DD") &&
+            b.status === BookingStatus.CONFIRMED
         )
         .map((b) => b.start);
       const currentDateTime = dayjs();

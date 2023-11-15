@@ -59,7 +59,7 @@ export interface BookingConfirmationResponse {
   start: number;
   doctorId: string;
   date: string;
-  status: string; 
+  status: BookingStatus; 
 }
 
 export enum BookingStatus {
