@@ -9,8 +9,8 @@ import {
 } from "../../../utils/utils";
 import {
   ApiResponse,
+  BookingConfirmationResponse,
   BookingDetails,
-  ConfirmedBookingDetails,
   OpeningHours,
   RequestType,
 } from "../../../utils/constants";
@@ -55,7 +55,7 @@ function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
     data: allConfirmedBookings,
     loading: loadingAllBookingDetails,
     error,
-  }: ApiResponse<ConfirmedBookingDetails[]> = useFetch({
+  }: ApiResponse<BookingConfirmationResponse[]> = useFetch({
     endpoint: "booking",
     requestType: RequestType.GET,
   });
@@ -94,7 +94,7 @@ function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
   }, [selectedDate, allConfirmedBookings]);
 
   if (loadingAllBookingDetails)
-    return <LoadingSkeleton height="550px" width="100px" />;
+    return <LoadingSkeleton height="100px" width="550px" />;
 
   if (error) return <p>Error fetching booking details</p>;
 
@@ -107,7 +107,7 @@ function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
         style={{ marginTop: "10px", minWidth: "550px" }}
         spacing={2}
       >
-        {availableTimeSlots?.length ? (
+        {availableTimeSlots && availableTimeSlots.length ? (
           availableTimeSlots.map((s) => (
             <Grid xs={4} onClick={() => setSelectedTimeSlot(s)} key={s}>
               <div

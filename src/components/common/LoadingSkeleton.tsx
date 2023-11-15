@@ -6,7 +6,7 @@ interface LoadingSkeletonProps {
 export default function LoadingSkeleton(props: LoadingSkeletonProps) {
   const { height, width } = props;
   return (
-    <Box sx={{ width: height ?? "100%", height: width ?? "400px" }}>
+    <Box sx={{ width: width ?? "100%", height: height ?? "100%" }}>
       <Skeleton animation="wave" />
       <Skeleton animation="wave" />
       <Skeleton animation="wave" />

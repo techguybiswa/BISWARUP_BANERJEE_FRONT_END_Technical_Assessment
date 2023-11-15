@@ -62,15 +62,6 @@ export interface BookingConfirmationResponse {
   status: string; 
 }
 
-export interface ConfirmedBookingDetails {
-  date: string;
-  doctorId: string;
-  id: string;
-  name: string;
-  start: number;
-  status: string; 
-}
-
 export enum BookingStatus {
   CONFIRMED = "confirmed",
   CANCEL = "cancel"
