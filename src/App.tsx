@@ -12,7 +12,8 @@ import {
 } from "./utils/constants";
 import useFetch from "./hooks/useFetch";
 import LoadingSkeleton from "./components/common/LoadingSkeleton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { searchInObjectByKeys } from "./utils/utils";
 
 function App() {
   const {
@@ -27,27 +28,36 @@ function App() {
   useEffect(() => {
     fetchDoctors();
   }, []);
+  const [searchText, setSearchText] = useState<string>("");
   return (
     <>
       <Layout heading="Doctors">
         <div style={{ marginTop: "30px" }}>
-          <SearchBar />
+          <SearchBar searchText={searchText} setSearchText={setSearchText} />
         </div>
         <div style={{ marginTop: "30px" }}>
           <Grid container spacing={2}>
             {loading && <LoadingSkeleton />}
             {error && <p> {error}</p>}
             {doctors &&
-              doctors.map((d) => (
-                <Grid xs={6} md={4} lg={3} key={d.id}>
-                  <StyledLink to={d.id + "/book"}>
-                    <DoctorCard
-                      doctor={d}
-                      imageUrl={mapDoctorIdToImage[d.id]}
-                    />
-                  </StyledLink>
-                </Grid>
-              ))}
+              doctors
+                .filter((d) =>
+                  searchInObjectByKeys(searchText, d, [
+                    "address",
+                    "description",
+                    "name",
+                  ])
+                )
+                .map((d) => (
+                  <Grid xs={6} md={4} lg={3} key={d.id}>
+                    <StyledLink to={d.id + "/book"}>
+                      <DoctorCard
+                        doctor={d}
+                        imageUrl={mapDoctorIdToImage[d.id]}
+                      />
+                    </StyledLink>
+                  </Grid>
+                ))}
           </Grid>
         </div>
       </Layout>

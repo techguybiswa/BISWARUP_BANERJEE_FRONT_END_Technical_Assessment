@@ -1,11 +1,16 @@
 import { TextField, InputAdornment } from "@mui/material";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-
-export default function SearchBar() {
+interface SearchBarProps {
+  searchText: string;
+  setSearchText: (searchText: string) => void;
+}
+export default function SearchBar(props: SearchBarProps) {
+  const { searchText, setSearchText } = props;
   return (
     <div>
       {" "}
       <TextField
+        value={searchText}
         sx={{
           m: 1,
           width: "100%",
@@ -24,6 +29,7 @@ export default function SearchBar() {
             </InputAdornment>
           ),
         }}
+        onChange={(e) => setSearchText(e.target.value)}
       />
     </div>
   );

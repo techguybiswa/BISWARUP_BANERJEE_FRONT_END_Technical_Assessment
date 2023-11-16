@@ -54,3 +54,5 @@ export const getDateTimeOfSelectedSlot = (selectedDate : Dayjs, selectedTime : n
     formatTime(selectedTime),
   "YYYY MM DD HH:mm A"
 )
+export const searchInObjectByKeys = <T>(searchText: string , object : T , keys : (keyof T)[]): boolean=> 
+  keys.map(k => JSON.stringify(object[k]).toLowerCase().includes(searchText.toLowerCase())).some(val => val)
