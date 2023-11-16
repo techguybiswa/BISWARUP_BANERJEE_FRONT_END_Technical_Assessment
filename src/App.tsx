@@ -13,7 +13,7 @@ import {
 import useFetch from "./hooks/useFetch";
 import LoadingSkeleton from "./components/common/LoadingSkeleton";
 import { useEffect, useState } from "react";
-import { searchInObjectByKeys } from "./utils/utils";
+import { isTextInObjectKeys, searchInObjectByKeys } from "./utils/utils";
 
 function App() {
   const {
@@ -42,7 +42,7 @@ function App() {
             {doctors &&
               doctors
                 .filter((d) =>
-                  searchInObjectByKeys(searchText, d, [
+                  isTextInObjectKeys<Doctor>(searchText, d, [
                     "address",
                     "description",
                     "name",
