@@ -26,7 +26,7 @@ function BookAppointment() {
   const [viewAllDates, setViewAllDates] = useState<boolean>(false);
   const [showBookingConfirmation, setShowBookingConfirmation] =
     useState<boolean>(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const { id: doctorId } = useParams();
   const handleClose = () => {

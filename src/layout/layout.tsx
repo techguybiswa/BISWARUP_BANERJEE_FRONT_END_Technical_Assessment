@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import Navbar from "../components/common/Navbar";
 import Typography from "@mui/material/Typography";
 import { styled } from "styled-components";
