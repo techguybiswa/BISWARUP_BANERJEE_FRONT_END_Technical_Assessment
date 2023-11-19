@@ -1,7 +1,9 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import Navbar from "../components/common/Navbar";
 import Typography from "@mui/material/Typography";
 import { styled } from "styled-components";
+import PromptBox from "../components/ai/PromptBox";
+
 interface LayoutProps {
   children: ReactNode;
   heading: string;
@@ -17,6 +19,7 @@ const StyledLayoutHeading = styled(Typography)`
 `;
 export default function Layout(props: LayoutProps) {
   const { heading } = props;
+
   return (
     <>
       {" "}
@@ -31,6 +34,7 @@ export default function Layout(props: LayoutProps) {
           {heading}
         </StyledLayoutHeading>
         {props.children}
+        <PromptBox />
       </LayoutContainer>
     </>
   );

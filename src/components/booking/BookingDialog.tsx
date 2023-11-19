@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog, DialogContent, Button } from "@mui/material";
 import { Doctor, Steps } from "../../utils/constants";
 import AvailableTimeSlots from "./available-time-slots/AvailableTimeSlots";
@@ -8,6 +8,7 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import ConfirmBooking from "./ConfirmBooking";
+import { useSearchParams } from "react-router-dom";
 
 interface ViewAllDatesDialogProps {
   handleClose: () => void;
@@ -22,6 +23,18 @@ function GetStep(
 ) {
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs());
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<number>(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const preSelectedBookingDate = searchParams.get("date");
+    if (dayjs(preSelectedBookingDate).isValid()) {
+      setCurrentStep(Steps.TIME_SELECTION);
+      setSelectedDate(dayjs(preSelectedBookingDate));
+    }
+    return () => {
+      setSearchParams({});
+    };
+  }, []);
 
   switch (step) {
     case Steps.DATE_SELECTION:
@@ -115,6 +128,7 @@ function ViewAllDatesDialog(props: ViewAllDatesDialogProps) {
   const { viewAllDates, handleClose, doctor } = props;
   const [currentStep, setCurrentStep] = useState<Steps>(Steps.DATE_SELECTION);
   const StepComponent = GetStep(currentStep, setCurrentStep, doctor);
+
   return (
     <>
       <Dialog open={viewAllDates} onClose={handleClose}>

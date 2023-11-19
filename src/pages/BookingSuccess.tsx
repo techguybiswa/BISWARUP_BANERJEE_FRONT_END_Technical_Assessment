@@ -6,6 +6,7 @@ import {
   ApiResponse,
   mapDoctorIdToImage,
   BookingStatus,
+  HttpApiRequest,
 } from "../utils/constants";
 import LoadingSkeleton from "../components/common/LoadingSkeleton";
 import {
@@ -32,7 +33,7 @@ function BookingSuccess() {
     requestType: RequestType.GET,
   });
   useEffect(() => {
-    fetchBookingSuccessDetails();
+    (fetchBookingSuccessDetails as HttpApiRequest)();
   }, []);
 
   return (

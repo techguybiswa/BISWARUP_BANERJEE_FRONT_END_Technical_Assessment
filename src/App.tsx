@@ -7,6 +7,7 @@ import { StyledLink } from "./components/common/StyledLink";
 import {
   ApiResponse,
   Doctor,
+  HttpApiRequest,
   RequestType,
   mapDoctorIdToImage,
 } from "./utils/constants";
@@ -26,15 +27,18 @@ function App() {
     requestType: RequestType.GET,
   });
   useEffect(() => {
-    fetchDoctors();
+    (fetchDoctors as HttpApiRequest)();
   }, []);
+
   const [searchText, setSearchText] = useState<string>("");
+
   return (
     <>
       <Layout heading="Doctors">
         <div style={{ marginTop: "30px" }}>
           <SearchBar searchText={searchText} setSearchText={setSearchText} />
         </div>
+
         <div style={{ marginTop: "30px" }}>
           <Grid container spacing={2}>
             {loading && <LoadingSkeleton />}

@@ -15,6 +15,7 @@ import {
   BookingConfirmationResponse,
   BookingDetails,
   BookingStatus,
+  HttpApiRequest,
   RequestType,
 } from "../../utils/constants";
 import Alert from "@mui/material/Alert";
@@ -43,7 +44,7 @@ function ConfirmBooking(props: ConfirmBookingProps) {
   });
 
   const confirmBooking = () => {
-    confirmAppointment();
+    (confirmAppointment as HttpApiRequest)();
   };
   const navigate = useNavigate();
   useEffect(() => {

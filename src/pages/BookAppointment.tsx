@@ -1,9 +1,14 @@
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import dayjs, { Dayjs } from "dayjs";
 import AvailableTimeSlots from "../components/booking/available-time-slots/AvailableTimeSlots";
-import { ApiResponse, Doctor, RequestType } from "../utils/constants";
+import {
+  ApiResponse,
+  Doctor,
+  HttpApiRequest,
+  RequestType,
+} from "../utils/constants";
 
 import Grid from "@mui/material/Grid";
 import ViewAllDatesDialog from "../components/booking/BookingDialog";
@@ -21,6 +26,8 @@ function BookAppointment() {
   const [viewAllDates, setViewAllDates] = useState<boolean>(false);
   const [showBookingConfirmation, setShowBookingConfirmation] =
     useState<boolean>(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const { id: doctorId } = useParams();
   const handleClose = () => {
     setViewAllDates(false);
@@ -36,7 +43,9 @@ function BookAppointment() {
   });
 
   useEffect(() => {
-    getDoctorDetails();
+    (getDoctorDetails as HttpApiRequest)();
+    const shouldShowViewAllDates = searchParams.get("mode") === "view-all";
+    setViewAllDates(shouldShowViewAllDates);
   }, []);
 
   useEffect(() => {

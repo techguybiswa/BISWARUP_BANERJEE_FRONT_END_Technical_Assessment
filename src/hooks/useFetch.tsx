@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ApiResponse, RequestType } from "../utils/constants";
+import { ApiResponse, HttpApiRequest, RequestType } from "../utils/constants";
 type ApiHeaders = {
   [key: string]: string;
 };
@@ -26,7 +26,7 @@ const useFetch = <T,>({
     "Content-Type": "application/json",
   };
 
-  function request() {
+  const request: HttpApiRequest = (): void => {
     setLoading(true);
     setError(null);
     fetch(url, {
@@ -48,7 +48,7 @@ const useFetch = <T,>({
         setError(`${error.message}`);
         setLoading(false);
       });
-  }
+  };
 
   return { request, data, loading, error };
 };

@@ -12,6 +12,7 @@ import {
   BookingConfirmationResponse,
   BookingDetails,
   BookingStatus,
+  HttpApiRequest,
   OpeningHours,
   RequestType,
 } from "../../../utils/constants";
@@ -50,7 +51,6 @@ function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
   const { bookingDetails, setSelectedTimeSlot, confirmationButton, header } =
     props;
   const { selectedDate, selectedTime } = bookingDetails;
-
   const {
     request: getAllConfirmedBookingDetails,
     data: allConfirmedBookings,
@@ -62,7 +62,7 @@ function AvailableTimeSlots(props: AvailableTimeSlotsProps) {
   });
 
   useEffect(() => {
-    getAllConfirmedBookingDetails();
+    (getAllConfirmedBookingDetails as HttpApiRequest)();
   }, []);
 
   useEffect(() => {
