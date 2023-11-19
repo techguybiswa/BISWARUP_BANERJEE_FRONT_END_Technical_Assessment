@@ -2,7 +2,17 @@
 
 <a href="https://docsbook.vercel.app/">LIVE LINK</a>
 
-<img src="https://github.com/techguybiswa/necktie-docs-book-app/blob/main/src/assets/docsbooklogo.png"/>
+<img src="https://github.com/techguybiswa/necktie-docs-book-app/blob/main/src/assets/docsbooklogo.webp"/>
+
+## Update : Added Book Doctor with AI feature. [19-11-2023]
+
+![GIF Recording 2023-11-19 at 8 25 20 PM](https://github.com/techguybiswa/BISWARUP_BANERJEE_FRONT_END_Technical_Assessment/assets/25161788/87c10945-dd37-4be4-9cac-bec0ff81977b)
+
+Now users can click on the "AI pop up" button and share the booking details over chat and generate booking links directly!
+
+Users can also ask any questions about the doctors as the AI  has the entire context of all the doctors.
+
+![GIF Recording 2023-11-19 at 8 30 06 PM](https://github.com/techguybiswa/BISWARUP_BANERJEE_FRONT_END_Technical_Assessment/assets/25161788/8981c51d-b9ac-4573-9c64-f8446098f45c)
 
 
 
