@@ -4,7 +4,6 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
-import useOpenAi from "../../hooks/useOpenAi";
 import ChatCompletionResponse, {
   ApiResponse,
   Doctor,
@@ -15,6 +14,7 @@ import useFetch from "../../hooks/useFetch";
 import { formatTime } from "../../utils/utils";
 import { HttpApiRequest } from "../../utils/constants";
 import PromptResponseContent from "./PromptResponseContent";
+import useDoctorBookAi from "../../hooks/useDoctorBookAi";
 
 function PromptBox() {
   const [viewAiPromptBox, setViewAiPromptBox] = useState<boolean>(false);
@@ -24,7 +24,7 @@ function PromptBox() {
     data: promptResponse,
     loading: loadingPromptResponse,
     error: openaiError,
-  } = useOpenAi<ChatCompletionResponse>();
+  } = useDoctorBookAi<ChatCompletionResponse>();
 
   const { request: fetchDoctors, data: doctors }: ApiResponse<Doctor[]> =
     useFetch<Doctor[]>({

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ApiResponse, HttpPromptRequest } from "../utils/constants";
 import dayjs from "dayjs";
 
-const useOpenAi = <T,>(): ApiResponse<T> => {
+const useDoctorBookAi = <T,>(): ApiResponse<T> => {
   const BASE_URL = "https://api.openai.com/v1/chat/completions";
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -86,4 +86,4 @@ const useOpenAi = <T,>(): ApiResponse<T> => {
   return { request, data, loading, error };
 };
 
-export default useOpenAi;
+export default useDoctorBookAi;
