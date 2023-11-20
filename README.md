@@ -5,14 +5,14 @@
 <img src="https://github.com/techguybiswa/necktie-docs-book-app/blob/main/src/assets/docsbooklogo.webp"/>
 
 ## Update : Added Book Doctor with AI feature. [19-11-2023]
+![GIF Recording 2023-11-20 at 9 16 32 AM](https://github.com/techguybiswa/BISWARUP_BANERJEE_FRONT_END_Technical_Assessment/assets/25161788/416eddb8-781a-4811-8aca-a4e8b5cdadfe)
 
-![GIF Recording 2023-11-19 at 8 25 20 PM](https://github.com/techguybiswa/BISWARUP_BANERJEE_FRONT_END_Technical_Assessment/assets/25161788/87c10945-dd37-4be4-9cac-bec0ff81977b)
 
 Now users can click on the "AI pop up" button and share the booking details over chat and generate booking links directly!
 
 Users can also ask any questions about the doctors as the AI  has the entire context of all the doctors.
 
-![GIF Recording 2023-11-19 at 8 30 06 PM](https://github.com/techguybiswa/BISWARUP_BANERJEE_FRONT_END_Technical_Assessment/assets/25161788/8981c51d-b9ac-4573-9c64-f8446098f45c)
+![GIF Recording 2023-11-20 at 9 20 36 AM](https://github.com/techguybiswa/BISWARUP_BANERJEE_FRONT_END_Technical_Assessment/assets/25161788/70a97a05-3205-4587-91a5-98556b645c16)
 
 
 
@@ -22,17 +22,14 @@ When the user loads the URL he is redirected to /doctors where the user sees a l
 
 In "/doctors" the user can see the list of the doctors and also some basic info about them.
 
-<img width="1440" alt="Screenshot 2023-11-12 at 1 16 37 PM" src="https://github.com/techguybiswa/necktie-docs-book-app/assets/25161788/d166149e-4438-4d4b-8480-da93c3c80a2c">
+<img width="1436" alt="Screenshot 2023-11-20 at 9 21 34 AM" src="https://github.com/techguybiswa/BISWARUP_BANERJEE_FRONT_END_Technical_Assessment/assets/25161788/7ce80fe9-f344-4f4b-8af9-1a72e89d37f9">
+
 
 <i>A basic skeleton loader has been implemented to have a smoother experience.</i>
 
 Also there is error handling in place that will display the error accordingly.
 
-<img width="1438" alt="Screenshot 2023-11-12 at 1 31 10 PM" src="https://github.com/techguybiswa/necktie-docs-book-app/assets/25161788/a9a58821-ca02-49e6-b411-55289aac1e1e">
-
 Once the user chooses a doctor. he will be taken to the doctor's profile page.
-
-<img width="987" alt="Screenshot 2023-11-12 at 1 32 32 PM" src="https://github.com/techguybiswa/necktie-docs-book-app/assets/25161788/e069404d-cdd1-4891-91e0-973c32120895">
 
 <br/>
 <b>The main goal was to make th UI appear very elegant, clean and make it extremely communicative to the user.</b>
@@ -41,12 +38,8 @@ Considering the assumption that an user mostly books a doctor's appointment fair
 
 <i>Also we highlight "Today" and "Tomorrow" specifically to make it easier for the user.</i>
 
-<img width="723" alt="Screenshot 2023-11-12 at 1 39 18 PM" src="https://github.com/techguybiswa/necktie-docs-book-app/assets/25161788/96c5e9e3-f783-4327-b255-ace1e468c8d7">
-
 
 The user can book any custom date as well, but for that he needs to click on the <b> "View All"</b> that pops open a "booking wizard with a calander". 
-
-<img width="1414" alt="Screenshot 2023-11-12 at 1 41 43 PM" src="https://github.com/techguybiswa/necktie-docs-book-app/assets/25161788/3e993eb8-cc38-4932-a159-e63c68af6850">
 
 <i>The calander has not been directly been rendered on the first load because we do not want the user to feel overwhelmed with too many UI elements and rather let the user explore on his own as needed.</i>
 
@@ -68,8 +61,6 @@ The available slots are displayed based on the following conditions:
 After the user selects, one of the dates from the most recent dates along with the available time slots, he is asked to click on a "Book Session" button. 
 <br/>
 
-<img width="680" alt="Screenshot 2023-11-12 at 1 56 30 PM" src="https://github.com/techguybiswa/necktie-docs-book-app/assets/25161788/4f89b1a8-c837-4e00-b82e-dbe03d646ce4">
-
 
 Once he clicks on it, the final booking step is revealed where he has to enter the booking name and click on "Confirm".
 
@@ -78,34 +69,27 @@ Again the reason to show the user the "Book Session" button was to make that the
 Also it might to some extent enhance performance especially when the app gets bigger, as with this current workflow we only load and render the components as needed based on the user's actions.
 
 
-<img width="833" alt="Screenshot 2023-11-12 at 1 59 22 PM" src="https://github.com/techguybiswa/necktie-docs-book-app/assets/25161788/77c66b09-372e-4d10-9af9-abd18a3ce7e9">
-
 Initially the confirm button is disabled, but as soon as it gets a name it's enabled.
 
 Also the whole flow is designed in a way such that, that it becomes extremely easy for the user to "modify" the date and time.
 
 Finally, as the user, confirms the booking details, he is redirected to the "/booking-success" page where he is shown the details of his confirmed booking. This link ""/booking-success" with the correct id can be loaded anytime anywhere. 
 
-<img width="976" alt="Screenshot 2023-11-12 at 2 02 10 PM" src="https://github.com/techguybiswa/necktie-docs-book-app/assets/25161788/fce47ed0-8532-45e9-83bf-f1c54701922b">
 
 There are some slots in the backend, that are made invalid. For example: Sundays.
 
 In that case when a user tries to book a slot that is invalidated by the backend, the user is shown an error message.
-
-<img width="755" alt="Screenshot 2023-11-12 at 2 03 19 PM" src="https://github.com/techguybiswa/necktie-docs-book-app/assets/25161788/a654cacb-467f-492f-a955-205f04f2def9">
 
 All the components like <AvailableSlots/> and <ConfirmBooking/> is again reused in the "View All" modal and the user can finish their booking from the "View All" modal as well.
 This has been done so that the user need not to switch back and forth from the modal mulitple times. 
 
 <br/>
 
-<img width="1200" alt="Screenshot 2023-11-12 at 2 04 26 PM" src="https://github.com/techguybiswa/necktie-docs-book-app/assets/25161788/5de22d2c-280a-4041-b2e0-c6b3350a3b70">
 
 We can see that for all the "continue" buttons the color scheme has been "black" and for the confirmation buttons, the color scheme has been "Green".
 
 When  there are no available slots for the selected date we display an error: 
 
-<img width="702" alt="Screenshot 2023-11-13 at 6 57 40 PM" src="https://github.com/techguybiswa/BISWARUP_BANERJEE_FRONT_END_Technical_Assessment/assets/25161788/805e7227-4dff-442c-8986-7f951bd8ad9a">
 
 ### Typescript Coverage and Compile 
 
@@ -117,7 +101,6 @@ To run a typescript check in the whole codebase please run
 
 <pre>npm run tsc</pre>
 
-<img width="1173" alt="Screenshot 2023-11-13 at 2 27 27 PM" src="https://github.com/techguybiswa/BISWARUP_BANERJEE_FRONT_END_Technical_Assessment/assets/25161788/1e1a729f-b2e6-42f4-9b1a-9fae42b04768">
 
 ## State Management 
 
