@@ -18,12 +18,12 @@ Users can also ask any questions about the doctors as the AI  has the entire con
 
 ## The User Journey
 
+![GIF Recording 2023-11-20 at 9 42 23 AM](https://github.com/techguybiswa/BISWARUP_BANERJEE_FRONT_END_Technical_Assessment/assets/25161788/dba52a41-7004-43c0-bd9a-f0b4ffa3b7cd)
+
+
 When the user loads the URL he is redirected to /doctors where the user sees a list of doctors. 
 
 In "/doctors" the user can see the list of the doctors and also some basic info about them.
-
-<img width="1436" alt="Screenshot 2023-11-20 at 9 21 34 AM" src="https://github.com/techguybiswa/BISWARUP_BANERJEE_FRONT_END_Technical_Assessment/assets/25161788/7ce80fe9-f344-4f4b-8af9-1a72e89d37f9">
-
 
 <i>A basic skeleton loader has been implemented to have a smoother experience.</i>
 
